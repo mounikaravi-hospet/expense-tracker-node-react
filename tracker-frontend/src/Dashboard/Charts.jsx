@@ -78,7 +78,8 @@ const Charts = ({ transactions = [] }) => {
     } else if (interval === "yearly") {
       // sorted years from buckets
       labels = Object.keys(buckets).sort((a, b) => Number(a) - Number(b));
-    } else {
+    } 
+    else {
       // daily/weekly: keys sorted by date value
       labels = Object.keys(buckets).sort((a, b) => {
         const da = new Date(a);
@@ -91,7 +92,10 @@ const Charts = ({ transactions = [] }) => {
     const displayLabels = labels.map((lbl) => {
       if (interval === "monthly") {
         // "0" -> "Jan", etc.
-        return new Date(now.getFullYear(), Number(lbl), 1).toLocaleDateString("en-US", { month: "short" });
+        return new Date(now.getFullYear(), Number(lbl), 1).toLocaleDateString(
+          "en-US",
+          { month: "short" }
+        );
       }
       return interval === "yearly" ? lbl : lbl;
     });
@@ -100,7 +104,9 @@ const Charts = ({ transactions = [] }) => {
       labels: displayLabels,
       datasets: [
         {
-          label: `${interval.charAt(0).toUpperCase() + interval.slice(1)} Spending`,
+          label: `${
+            interval.charAt(0).toUpperCase() + interval.slice(1)
+          } Spending`,
           data: labels.map((lbl) => buckets[lbl] || 0),
           fill: false,
           tension: 0.3,
@@ -110,7 +116,12 @@ const Charts = ({ transactions = [] }) => {
   }, [transactions, interval]);
 
   return (
-    <Card border="success" className="mt-3 mb-3" style={{ width: "100%", height: "100%" }} id="visualize">
+    <Card
+      border="success"
+      className="mt-3 mb-3"
+      style={{ width: "100%", height: "100%" }}
+      id="visualize"
+    >
       <Card.Header as="h4" className="d-flex align-items-center gap-3">
         Trends
         <Form.Select
@@ -118,13 +129,13 @@ const Charts = ({ transactions = [] }) => {
           onChange={(e) => setInterval(e.target.value)}
           className="ms-auto w-auto"
         >
-          <option value="daily">Daily</option>
-          <option value="weekly">Weekly</option>
+          {/* <option value="daily">Daily</option>
+          <option value="weekly">Weekly</option> */}
           <option value="monthly">Monthly</option>
           <option value="yearly">Yearly</option>
         </Form.Select>
       </Card.Header>
-      <Card.Body style={{ position: 'relative', height: '300px' }}>
+      <Card.Body style={{ position: "relative", height: "300px" }}>
         <Line
           data={chartData}
           options={{
@@ -134,9 +145,14 @@ const Charts = ({ transactions = [] }) => {
             backgroundColor: "rgba(53, 162, 235, 0.5)",
             plugins: { legend: { position: "top" } },
             scales: {
-              x: { title: { display: true, text: interval === "daily" ? "Hour" : "Date" } },
-              y: { title: { display: true, text: "Amount ($)" } }
-            }
+              x: {
+                title: {
+                  display: true,
+                  text: interval === "monthly" ? "Month" : "Year",
+                },
+              },
+              y: { title: { display: true, text: "Amount ($)" } },
+            },
           }}
         />
       </Card.Body>

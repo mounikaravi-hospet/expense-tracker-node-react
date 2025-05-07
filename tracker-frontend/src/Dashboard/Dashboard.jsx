@@ -2,6 +2,7 @@ import { useState, React } from "react";
 import DisplayTransactions from "./DisplayTransactions";
 import Summary from "../Summary/Summary";
 import Charts from "./Charts";
+import Insights from "../Insights/Insights";
 
 const Dashboard = () => {
   const [transactions, setTransactions] = useState([]);
@@ -13,8 +14,9 @@ const Dashboard = () => {
             onTransactionsFetched={(txs) => setTransactions(txs)}
           />
         </div>
-        <div style={{ width: "25%" }}>
+        <div style={{ width: "30%" }}>
           <Summary transactions={transactions} />
+          <Insights transactions={transactions} />
         </div>
       </div>
 

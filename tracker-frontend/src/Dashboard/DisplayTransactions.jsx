@@ -59,7 +59,7 @@ const DisplayTransactions = ({ onTransactionsFetched }) => {
     const sortedTransactions = [...allTransactions].sort((a, b) => {
       if (criteria === "date") {
         console.log("Sorting by date");
-        return new Date(a.date) - new Date(b.date);
+        return new Date(b.date) - new Date(a.date);
       } else if (criteria === "amount") {
         console.log("Sorting by amount");
         return a.amount - b.amount;

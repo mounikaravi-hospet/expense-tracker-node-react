@@ -28,7 +28,7 @@ const AddTransaction = () => {
       });
       console.log(response.data);
       alert("Transaction added successfully!");
-      setTransaction({}); // Reset the form
+      navigate("/dashboard");
     } catch (error) {
       console.error(error);
       alert("Failed to add transaction.");

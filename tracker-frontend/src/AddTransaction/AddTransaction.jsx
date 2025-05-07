@@ -46,7 +46,7 @@ const AddTransaction = () => {
               <Form.Label>Category</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Salary/Utilities/Foodsd"
+                placeholder="Salary/Utilities/Food"
                 required
                 onChange={handleInput}
                 name="category"

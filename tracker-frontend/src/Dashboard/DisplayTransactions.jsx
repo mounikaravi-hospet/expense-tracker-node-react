@@ -7,7 +7,7 @@ import Button from "react-bootstrap/esm/Button";
 import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 
-const DisplayTransactions = ({onTransactionsFetched}) => {
+const DisplayTransactions = ({ onTransactionsFetched }) => {
   const navigate = useNavigate();
   const [transactions, setTransactions] = useState([]);
   const [sortBy, setSortBy] = useState("");
@@ -88,11 +88,36 @@ const DisplayTransactions = ({onTransactionsFetched}) => {
     );
     setTransactions(filteredTransactions);
   };
+
+  const deleteTransaction = async (transactionId) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this transaction? This action cannot be undone."
+    );
+    if (confirmDelete) {
+      try {
+        await axios.delete(`/api/delete-transaction/${transactionId}`, {
+          withCredentials: true,
+        });
+        setTransactions((prevTransactions) =>
+          prevTransactions.filter(
+            (transaction) => transaction.id !== transactionId
+          )
+        );
+        fetchTransactions(); // Refresh the transactions after deletion
+        console.log("Transaction deleted successfully");
+      } catch (error) {
+        console.error("Error deleting transaction:", error);
+      }
+    }
+  };
   return (
     <div>
       <Card className="mt-3" border="success">
         <Card.Header as="h2">Transactions</Card.Header>
-        <Button className="btn btn-success mt-3 w-25 ms-3" onClick={addTransaction}>
+        <Button
+          className="btn btn-success mt-3 w-25 ms-3"
+          onClick={addTransaction}
+        >
           Add Transaction
         </Button>
         <Card.Body>
@@ -131,11 +156,12 @@ const DisplayTransactions = ({onTransactionsFetched}) => {
                 <th>Type</th>
                 <th>Date</th>
                 <th>Notes</th>
+                <th>Delete</th>
               </tr>
             </thead>
             <tbody>
-              {transactions.map((transaction, index) => (
-                <tr key={index}>
+              {transactions.map((transaction) => (
+                <tr key={transaction.id}>
                   <td>{transaction.category}</td>
                   <td>{transaction.amount}</td>
                   <td
@@ -149,6 +175,15 @@ const DisplayTransactions = ({onTransactionsFetched}) => {
                   </td>
                   <td>{formatedDate(transaction.date)}</td>
                   <td>{transaction.note}</td>
+                  <td>
+                    <Button
+                      variant="danger"
+                      onClick={() => deleteTransaction(transaction.id)}
+                      className="btn btn-danger"
+                    >
+                      Delete
+                    </Button>
+                  </td>
                 </tr>
               ))}
             </tbody>

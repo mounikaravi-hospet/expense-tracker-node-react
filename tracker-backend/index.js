@@ -25,8 +25,7 @@ app.get("/check-auth", (req, res) => {
       user: {
         name: req.session.user.name,
         email: req.session.user.email,
-
-      }
+      },
     });
   } else {
     res.json({ authenticated: false });
@@ -127,6 +126,17 @@ app.post("/add-transaction", requireAuth, (req, res) => {
       res.status(201).json(result);
     }
   );
+});
+
+app.delete("/delete-transaction/:id", requireAuth, (req, res) => {
+  const id = Number(req.params.id);
+  db.query("DELETE FROM transactions WHERE id = ?", [id], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send("Error deleting transaction");
+    }
+    res.status(200).json(result);
+  });
 });
 
 app.listen(PORT, () => {

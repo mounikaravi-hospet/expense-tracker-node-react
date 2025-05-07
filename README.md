@@ -81,5 +81,5 @@ export const db = mysql.createConnection({
 2. Start the frontend
    ```bash
     cd ../tracker-frontend
-    npm start
+    npm run dev
    ```

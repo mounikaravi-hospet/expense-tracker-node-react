@@ -1,6 +1,7 @@
 // src/Summary/Summary.jsx
 import React, { useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/esm/Button";
 import Form from "react-bootstrap/Form";
 
 const Summary = ({ transactions = [] }) => {
@@ -54,7 +55,7 @@ const Summary = ({ transactions = [] }) => {
   return (
     <Card border="success" className="mt-3">
       <Card.Header as="h4" className="d-flex align-items-center gap-5">
-        Summary 
+        Summary
         <Form.Select
           value={interval}
           onChange={(e) => setInterval(e.target.value)}
@@ -73,6 +74,9 @@ const Summary = ({ transactions = [] }) => {
         <Card.Text>
           <strong>Total Amount Spent:</strong> ${summary.totalAmount.toFixed(2)}
         </Card.Text>
+        <Button variant="success" className="w-100 mt-3" as="a" href="#visualize">
+            See the trend
+        </Button>
       </Card.Body>
     </Card>
   );

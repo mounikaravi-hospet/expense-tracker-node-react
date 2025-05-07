@@ -110,7 +110,7 @@ const Charts = ({ transactions = [] }) => {
   }, [transactions, interval]);
 
   return (
-    <Card border="success" className="mt-3 mb-3" style={{ width: "100%", height: "100%" }}>
+    <Card border="success" className="mt-3 mb-3" style={{ width: "100%", height: "100%" }} id="visualize">
       <Card.Header as="h4" className="d-flex align-items-center gap-3">
         Trends
         <Form.Select
@@ -130,6 +130,8 @@ const Charts = ({ transactions = [] }) => {
           options={{
             responsive: true,
             maintainAspectRatio: false,
+            borderColor: "rgb(53, 162, 235)",
+            backgroundColor: "rgba(53, 162, 235, 0.5)",
             plugins: { legend: { position: "top" } },
             scales: {
               x: { title: { display: true, text: interval === "daily" ? "Hour" : "Date" } },

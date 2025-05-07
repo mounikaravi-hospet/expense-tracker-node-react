@@ -73,7 +73,7 @@ export const db = mysql.createConnection({
 
    ```bash
     cd tracker-backend
-    npm start
+    npm run dev
    ```
 
    The server will run on http://localhost:5555 by default.

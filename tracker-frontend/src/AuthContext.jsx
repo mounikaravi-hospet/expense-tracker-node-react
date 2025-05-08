@@ -19,6 +19,8 @@ export const AuthProvider = ({ children }) => {
           setAuth({
             name: res.data.user.name,
             email: res.data.user.email,
+            password: res.data.user.password,
+            id: res.data.user.id,
           });
         }
       })

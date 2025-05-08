@@ -132,7 +132,7 @@ const DisplayTransactions = ({ onTransactionsFetched }) => {
             onChange={handleSortChange}
             style={{ minWidth: "200px" }}
           >
-            <option value="">Sort By - Today's items on top</option>
+            <option value="">Sort By</option>
             <option value="date">Date</option>
             <option value="category">Category</option>
             <option value="amount">Amount</option>

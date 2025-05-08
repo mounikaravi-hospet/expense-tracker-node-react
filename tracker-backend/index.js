@@ -25,6 +25,7 @@ app.get("/check-auth", (req, res) => {
       user: {
         name: req.session.user.name,
         email: req.session.user.email,
+        password: req.session.user.password,
       },
     });
   } else {
@@ -61,6 +62,8 @@ app.post("/login", (req, res) => {
         req.session.user = {
           email: user.email,
           name: user.name,
+          password: user.password,
+          id: user.id,
         };
 
         res.status(200).send({
@@ -68,6 +71,8 @@ app.post("/login", (req, res) => {
           user: {
             email: user.email,
             name: user.name,
+            password: user.password,
+            id: user.id,
           },
         });
       } else {
@@ -75,6 +80,62 @@ app.post("/login", (req, res) => {
       }
     }
   );
+});
+
+//edit profile route
+app.put("/edit-profile", (req, res) => {
+  const { name, email, password } = req.body;
+  const userId = req.session.user.id;
+
+  // Begin a transaction
+  db.beginTransaction((err) => {
+    if (err) {
+      console.error("Transaction start error:", err);
+      return res.status(500).send("Transaction failed to start");
+    }
+
+    // Update the user profile
+    db.query(
+      "UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?",
+      [name, email, password, userId],
+      (err, result) => {
+        if (err) {
+          console.error("Error updating profile:", err);
+          return db.rollback(() => {
+            res.status(500).send("Error updating profile");
+          });
+        }
+
+        // Update the email in transactions
+        db.query(
+          "UPDATE transactions SET email = ? WHERE user_id = ?",
+          [email, userId],
+          (err, result) => {
+            if (err) {
+              console.error("Error updating transactions:", err);
+              return db.rollback(() => {
+                res.status(500).send("Error updating transactions");
+              });
+            }
+
+            // Commit the transaction if both updates succeed
+            db.commit((err) => {
+              if (err) {
+                console.error("Transaction commit error:", err);
+                return db.rollback(() => {
+                  res.status(500).send("Transaction failed");
+                });
+              }
+
+              // Update session with new details
+              req.session.user = { ...req.session.user, name, email, password };
+              res.status(200).send(result);
+            });
+          }
+        );
+      }
+    );
+  });
 });
 
 //logout route

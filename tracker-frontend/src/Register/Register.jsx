@@ -41,14 +41,14 @@ const Register = ({ setAuth }) => {
   return (
     <div>
       <Card
-        className="text-center w-50 mx-auto mt-5"
+        className="w-50 mx-auto mt-5"
         border="success"
         style={{ width: "18rem" }}
       >
         <Card.Body>
-          <Card.Title>Register</Card.Title>
+          <Card.Title className="text-center">Register</Card.Title>
           <Card.Body>
-            <Form className="w-50 mx-auto" onSubmit={handleSubmit}>
+            <Form className="w-60 mx-auto" onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="name">
                 <Form.Label>Name</Form.Label>
                 <Form.Control
@@ -111,7 +111,7 @@ const Register = ({ setAuth }) => {
         </Card.Body>
         <Card.Footer className="text-muted">
           Already a member?
-          <Card.Link as={Link} to="/login">
+          <Card.Link as={Link} to="/">
             Login
           </Card.Link>
         </Card.Footer>

@@ -45,14 +45,14 @@ const Login = () => {
   return (
     <div>
       <Card
-        className="text-center w-50 mx-auto mt-5"
+        className="w-50 mx-auto mt-5"
         border="success"
         style={{ width: "18rem" }}
       >
         <Card.Body>
-          <Card.Title>Login</Card.Title>
+          <Card.Title className="text-center ">Login</Card.Title>
           <Card.Body>
-            <Form className="w-50 mx-auto" onSubmit={handleSubmit}>
+            <Form className="w-60 mx-auto" onSubmit={handleSubmit}>
               <Form.Group
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"

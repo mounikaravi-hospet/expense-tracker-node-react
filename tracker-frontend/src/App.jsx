@@ -16,6 +16,7 @@ import { useState } from "react";
 import { AuthProvider } from "./AuthContext";
 import ProtectedRoute from "./ProtectedRoute";
 import AddTransaction from "./AddTransaction/AddTransaction";
+import EditProfile from "./Edit Profile/EditProfile";
 
 function App() {
   return (
@@ -34,11 +35,19 @@ function App() {
               </ProtectedRoute>
             }
           />
-                    <Route
+          <Route
             path="/add-transaction"
             element={
               <ProtectedRoute>
-                <AddTransaction/>
+                <AddTransaction />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="edit-profile"
+            element={
+              <ProtectedRoute>
+                <EditProfile />
               </ProtectedRoute>
             }
           />

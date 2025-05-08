@@ -28,7 +28,7 @@ const NavMenu = () => {
 
             <Nav className="ms-auto align-items-center">
               <Navbar.Text className="me-2">Signed in as:</Navbar.Text>
-              <Nav.Link as={Link} to="/dashboard" className="p-0">
+              <Nav.Link as={Link} to="/edit-profile" className="p-0">
                 {auth.name}
               </Nav.Link>
               <Nav.Link as={Link} to="/" onClick={logout} className="ms-2">

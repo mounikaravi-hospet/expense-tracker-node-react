@@ -10,6 +10,37 @@ const AddTransaction = () => {
   const [transaction, setTransaction] = useState({});
   const navigate = useNavigate();
   const { auth } = useAuth();
+  const [isDisplayTextInput, setIsDisplayTextInput] = useState(false);
+
+  const CATEGORY_LIST = [
+    "Groceries - Costco",
+    "Groceries - Walmart",
+    "Groceries - Supermarket",
+    "Groceries - Indian",
+    "Gas",
+    "Rent",
+    "Internet",
+    "Electricity",
+    "Restaurant - Indian",
+    "Restaurant - General",
+    "Restaurant - Bar",
+    "Recreation",
+    "Travel - Accommodation",
+    "Travel - Food",
+    "Travel - Activities",
+    "Travel - transportation",
+    "Train",
+    "Personal Training",
+    "Monthly Savings",
+    "Misc savings",
+    "Other",
+  ];
+
+  const handleCategoryChange = (e) => {
+    const selectedCategory = e.target.value;
+    setTransaction({ ...transaction, category: selectedCategory });
+    setIsDisplayTextInput(selectedCategory === "Other");
+  };
 
   const handleInput = (e) => {
     setTransaction({ ...transaction, [e.target.name]: e.target.value });
@@ -44,14 +75,32 @@ const AddTransaction = () => {
           <Form onSubmit={onSubmit}>
             <Form.Group className="mb-3" controlId="category">
               <Form.Label>Category</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Salary/Utilities/Food"
+              <Form.Select
+                aria-label="Default select example"
                 required
-                onChange={handleInput}
+                onChange={handleCategoryChange}
                 name="category"
-              />
+              >
+                <option>Select Category</option>
+                {CATEGORY_LIST.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
+                ))}
+              </Form.Select>
             </Form.Group>
+            {isDisplayTextInput && (
+              <Form.Group className="mb-3" controlId="category">
+                <Form.Label>Other Category</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter category"
+                  required
+                  onChange={handleInput}
+                  name="category"
+                />
+              </Form.Group>
+            )}
 
             <Form.Group className="mb-3" controlId="amount">
               <Form.Label>Amount</Form.Label>

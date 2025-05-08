@@ -28,8 +28,14 @@ const DisplayTransactions = ({ onTransactionsFetched }) => {
       const response = await axios.get(`/api/transactions/${email}`, {
         withCredentials: true,
       });
-      setAllTransactions(response.data);
-      setTransactions(response.data);
+      // setAllTransactions(response.data);
+      // setTransactions(response.data);
+      // onTransactionsFetched?.(response.data);
+      const sortedDesc = response.data.sort(
+        (a, b) => new Date(b.date) - new Date(a.date)
+      );
+      setAllTransactions(sortedDesc);
+      setTransactions(sortedDesc);
       onTransactionsFetched?.(response.data);
     } catch (error) {
       console.error("Error fetching transactions:", error);
@@ -49,7 +55,7 @@ const DisplayTransactions = ({ onTransactionsFetched }) => {
     const criteria = e.target.value;
     setSortBy(criteria);
     const sorted = [...allTransactions].sort((a, b) => {
-      if (criteria === "date") return new Date(b.date) - new Date(a.date);
+      if (criteria === "date") return new Date(a.date) - new Date(b.date);
       if (criteria === "amount") return a.amount - b.amount;
       if (criteria === "category") return a.category.localeCompare(b.category);
       if (criteria === "type") return a.type.localeCompare(b.type);
@@ -126,7 +132,7 @@ const DisplayTransactions = ({ onTransactionsFetched }) => {
             onChange={handleSortChange}
             style={{ minWidth: "200px" }}
           >
-            <option value="">Sort By</option>
+            <option value="">Sort By - Today's items on top</option>
             <option value="date">Date</option>
             <option value="category">Category</option>
             <option value="amount">Amount</option>
@@ -134,7 +140,7 @@ const DisplayTransactions = ({ onTransactionsFetched }) => {
           </Form.Select>
         </div>
 
-        <Table striped bordered hover responsive>
+        <Table striped bordered hover responsive variant="success">
           <thead>
             <tr>
               <th>Category</th>

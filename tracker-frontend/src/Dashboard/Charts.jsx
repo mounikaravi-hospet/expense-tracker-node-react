@@ -78,8 +78,7 @@ const Charts = ({ transactions = [] }) => {
     } else if (interval === "yearly") {
       // sorted years from buckets
       labels = Object.keys(buckets).sort((a, b) => Number(a) - Number(b));
-    } 
-    else {
+    } else {
       // daily/weekly: keys sorted by date value
       labels = Object.keys(buckets).sort((a, b) => {
         const da = new Date(a);
@@ -141,8 +140,8 @@ const Charts = ({ transactions = [] }) => {
           options={{
             responsive: true,
             maintainAspectRatio: false,
-            borderColor: "rgb(53, 162, 235)",
-            backgroundColor: "rgba(53, 162, 235, 0.5)",
+            borderColor: "#198754 ",
+            backgroundColor: "#198754",
             plugins: { legend: { position: "top" } },
             scales: {
               x: {

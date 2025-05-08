@@ -61,10 +61,10 @@ const Summary = ({ transactions = [] }) => {
           onChange={(e) => setInterval(e.target.value)}
           className="ms-auto w-auto"
         >
-          <option value="daily">Daily</option>
-          <option value="weekly">Weekly</option>
-          <option value="monthly">Monthly</option>
-          <option value="yearly">Yearly</option>
+          <option value="daily">This Day</option>
+          <option value="weekly">This Week</option>
+          <option value="monthly">This Month</option>
+          <option value="yearly">This Year</option>
         </Form.Select>
       </Card.Header>
       <Card.Body>
@@ -74,8 +74,13 @@ const Summary = ({ transactions = [] }) => {
         <Card.Text>
           <strong>Total Amount Spent:</strong> ${summary.totalAmount.toFixed(2)}
         </Card.Text>
-        <Button variant="success" className="w-100 mt-3" as="a" href="#visualize">
-            See the trend
+        <Button
+          variant="success"
+          className="w-100 mt-3"
+          as="a"
+          href="#visualize"
+        >
+          See the trend
         </Button>
       </Card.Body>
     </Card>

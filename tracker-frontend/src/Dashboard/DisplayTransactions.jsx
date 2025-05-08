@@ -80,16 +80,24 @@ const DisplayTransactions = ({ onTransactionsFetched }) => {
   );
 
   return (
-    <Card className="h-auto">
+    <Card className="h-auto" border='success' bg="success" text="white">
       <Card.Header as="h2">Transactions</Card.Header>
       <Card.Body>
         <Row className="mb-3 g-2">
-          <Col xs={4} s={4} md={4} lg={4}>
+          <Col xs={4} s={4} md={3} lg={2}>
             <Button
-              variant="success"
+              variant="light"
               onClick={() => navigate("/add-transaction")}
             >
               Add Transaction
+            </Button>
+          </Col>
+          <Col xs={4} s={4} md={3} lg={3}>
+            <Button
+              variant="light"
+              onClick={() => navigate("/add-transaction")}
+            >
+              Add Recurring Transaction
             </Button>
           </Col>
         </Row>
@@ -114,7 +122,7 @@ const DisplayTransactions = ({ onTransactionsFetched }) => {
         </Row>
 
         <div className="table-responsive">
-          <Table striped bordered hover variant="success">
+          <Table striped bordered hover variant="success" >
             <thead>
               <tr>
                 <th>Category</th>

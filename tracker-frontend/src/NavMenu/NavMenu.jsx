@@ -3,6 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 import { useAuth } from "../AuthContext";
+import logo from "../assets/logo.png";
 
 const NavMenu = () => {
   const { auth, logout, loading } = useAuth();
@@ -12,9 +13,9 @@ const NavMenu = () => {
 
   return (
     <div>
-      <Navbar expand="lg" className="p-2" bg="success" data-bs-theme="dark">
+      <Navbar expand="lg" className="" bg="success" data-bs-theme="dark">
         <Navbar.Brand as={Link} to="/dashboard">
-          SpendifEye
+        <img src={logo} height="40" className="m-1"/> SpendifEye
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 

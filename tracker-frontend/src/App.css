@@ -1,5 +1,5 @@
 .page-item.active .page-link {
-  background-color: var(--bs-success) !important;
+  background-color: var(--bs-light) !important;
   border-color: var(--bs-success) !important;
 }
 /* make every page number green */
@@ -9,7 +9,7 @@
 
 /* keep the active page’s text white (default) */
 .pagination .page-item.active .page-link {
-  color: #fff;
+  color:var(--bs-success);
 }
 
 /* on hover, darken the green if you like */

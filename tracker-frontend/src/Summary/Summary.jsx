@@ -1,4 +1,3 @@
-// src/Summary/Summary.jsx
 import React, { useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/esm/Button";
@@ -9,11 +8,13 @@ const Summary = ({ transactions = [] }) => {
   const [summary, setSummary] = useState({
     totalTransactions: 0,
     totalAmount: 0,
+    totalSpent: 0,
+    totalEarned: 0,
   });
 
   useEffect(() => {
     if (!transactions.length) {
-      setSummary({ totalTransactions: 0, totalAmount: 0 });
+      setSummary({ totalTransactions: 0, totalEarned: 0, totalSpent: 0 });
       return;
     }
 
@@ -44,12 +45,25 @@ const Summary = ({ transactions = [] }) => {
     });
 
     const totalTransactions = filtered.length;
-    const totalAmount = filtered.reduce(
-      (sum, t) => sum + parseFloat(t.amount || 0),
-      0
-    );
+    //   const totalAmount = filtered.reduce(
+    //     (sum, t) => sum + parseFloat(t.amount || 0),
+    //     0
+    //   );
 
-    setSummary({ totalTransactions, totalAmount });
+    //   setSummary({ totalTransactions, totalAmount });
+    // }, [interval, transactions]);
+    let totalSpent = 0;
+    let totalEarned = 0;
+    filtered.forEach((t) => {
+      const amt = parseFloat(t.amount) || 0;
+      if (t.type.toLowerCase() === "expense") {
+        totalSpent += amt;
+      } else if (t.type.toLowerCase() === "income") {
+        totalEarned += amt;
+      }
+    });
+
+    setSummary({ totalTransactions, totalSpent, totalEarned });
   }, [interval, transactions]);
 
   return (
@@ -72,7 +86,10 @@ const Summary = ({ transactions = [] }) => {
           <strong>Total Transactions:</strong> {summary.totalTransactions}
         </Card.Text>
         <Card.Text>
-          <strong>Total Amount Spent:</strong> ${summary.totalAmount.toFixed(2)}
+          <strong>Total Amount Spent:</strong> ${summary.totalSpent.toFixed(2)}
+        </Card.Text>
+        <Card.Text>
+          <strong>Total Amount Earned:</strong> ${summary.totalEarned.toFixed(2)}
         </Card.Text>
         <Button
           variant="success"

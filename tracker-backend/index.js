@@ -176,9 +176,10 @@ app.get("/transactions/:email", requireAuth, (req, res) => {
 app.post("/add-transaction", requireAuth, (req, res) => {
   const { category, amount, type, date, notes } = req.body;
   const email = req.session.user.email;
+  const userId = req.session.user.id;
   db.query(
-    "INSERT INTO transactions (email, category, amount, type, date, note) VALUES (?, ?, ?, ?, ?, ?)",
-    [email, category, amount, type, date, notes],
+    "INSERT INTO transactions (email, user_id ,category, amount, type, date, note) VALUES (?, ?, ?, ?, ?, ?, ?)",
+    [email, userId, category, amount, type, date, notes],
     (err, result) => {
       if (err) {
         console.error(err);

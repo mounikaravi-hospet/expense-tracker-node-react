@@ -20,41 +20,43 @@ import EditProfile from "./Edit Profile/EditProfile";
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <NavMenu />
+    <div>
+      <AuthProvider>
+        <Router>
+          <NavMenu />
 
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/add-transaction"
-            element={
-              <ProtectedRoute>
-                <AddTransaction />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="edit-profile"
-            element={
-              <ProtectedRoute>
-                <EditProfile />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </Router>
-      <Outlet />
-    </AuthProvider>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/add-transaction"
+              element={
+                <ProtectedRoute>
+                  <AddTransaction />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="edit-profile"
+              element={
+                <ProtectedRoute>
+                  <EditProfile />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </Router>
+        <Outlet />
+      </AuthProvider>
+    </div>
   );
 }
 

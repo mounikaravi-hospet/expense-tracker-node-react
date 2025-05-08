@@ -130,8 +130,8 @@ const Insights = ({ transactions = [] }) => {
   return (
     <>
       {/* Comparison Card for YTD */}
-      <Card border="primary" bg="info" className="mt-3 mb-3">
-        <Card.Header as="h4">Year‑to‑Date Comparison</Card.Header>
+      <Card border="success" className="mt-3 mb-3">
+        <Card.Header as="h4">Year-to-Date Comparison</Card.Header>
         <Card.Body>
           <Row>
             <Col>
@@ -183,7 +183,7 @@ const Insights = ({ transactions = [] }) => {
         </Card.Body>
       </Card>
 
-      <Card border="primary" bg="info" className="mb-3">
+      <Card border="success" className="mb-3 ">
         <Card.Header as="h4">Insights — {lastYear} (Full Year)</Card.Header>
         <Card.Body>
           <p>
